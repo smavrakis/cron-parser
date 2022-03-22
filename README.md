@@ -7,6 +7,8 @@ A basic cron expression parser. Not all cron strings are supported due to lack o
 - Supported values: numbers, JAN-DEC and SUN-SAT
 - Supported special characters: , - * /
 
+The app takes in a string as an argument and prints each field to console to show the times at which it will run.
+
 ## How to run
 Depending on your environment, please choose the appropriate asset from the releases page (see below). Then unzip the file, navigate to the root folder and open the command line. 
 Finally, run the **CronParser** file with your desired argument. For example, for Windows you can run the command `.\CronParser.exe "*/15 0 1,15 * 1-5 /usr/bin/find"`.
@@ -24,3 +26,11 @@ Finally, run the **CronParser** file with your desired argument. For example, fo
 - win-x64-self-contained
 - linux-x64-self-contained
 - osx-x64-self-contained
+
+## Future work
+Some additional features that I would like to add if I had more time:
+
+- Expression validation
+- Support for additional fields: second, year
+- Support for additional special characters: ? L W #
+- Additional unit tests

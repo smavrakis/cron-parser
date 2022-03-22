@@ -4,8 +4,7 @@
     {        
         Comma,
         Dash,
-        Asterisk,
-        QuestionMark,
+        Asterisk,        
         Slash
     }
 }

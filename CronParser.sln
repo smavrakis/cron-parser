@@ -9,7 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F66565AD-F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CronParser", "src\CronParser\CronParser.csproj", "{B899828B-5531-4023-AC5B-719CFFDCA024}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CronParser.Tests", "test\CronParser.Tests\CronParser.Tests.csproj", "{0623994A-C677-4393-85AB-B2BA29B397BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CronParser.Tests", "test\CronParser.Tests\CronParser.Tests.csproj", "{0623994A-C677-4393-85AB-B2BA29B397BF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CB6D2F03-0DE9-487B-B521-A47EEF82165C}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -47,8 +47,8 @@ namespace CronParser.Tests.Models
         [InlineData("*/15 0 1,15 13 1-5 /usr/bin/find")]
         [InlineData("*/15 0 1,15 * 0-3 /usr/bin/find")]
         [InlineData("abda 0 1,15 * 1-5 /usr/bin/find")]
-        [InlineData("*/15 0 1,15 edf 1-5 /usr/bin/find")]
-        [InlineData("*/15 0 1,15 * rty-gfhr /usr/bin/find")]
+        [InlineData("*/15 0 1,15 SAT 1-5 /usr/bin/find")]
+        [InlineData("*/15 0 1,15 * rty-MON /usr/bin/find")]
         public void Given_invalid_range_When_creating_the_expression_Then_should_throw(string expression)
         {
             // Given

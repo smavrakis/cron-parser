@@ -17,7 +17,7 @@ namespace CronParser.Models
 
         private static readonly Dictionary<char, SpecialCharacter> SpecialCharacters = new Dictionary<char, SpecialCharacter>
         {
-            { ',', SpecialCharacter.Comma}, { '-', SpecialCharacter.Dash}, { '*', SpecialCharacter.Asterisk}, { '?', SpecialCharacter.QuestionMark}, { '/', SpecialCharacter.Slash}
+            { ',', SpecialCharacter.Comma}, { '-', SpecialCharacter.Dash}, { '*', SpecialCharacter.Asterisk}, { '/', SpecialCharacter.Slash}
         };
 
         private readonly List<CronField> _cronFields;
@@ -33,7 +33,7 @@ namespace CronParser.Models
 
             if (expressionParts.Length != 6)
             {
-                throw new FormatException("Invalid cron epxression format, please provide five time fields (minute, hour, day of month, month, and day of week) plus a command");
+                throw new FormatException("Invalid cron epxression format, please provide five time fields (minute, hour, day of month, month, and day of week), plus a command");
             }
 
             Minute = new CronField(CronFieldNames.Minute, ParseRanges(CronFieldNames.Minute, CronFieldLimits.MinuteMin, CronFieldLimits.MinuteMax, expressionParts[0]));
@@ -52,6 +52,15 @@ namespace CronParser.Models
         public CronField Month { get; }
         public CronField DayOfWeek { get; }
         public string Command { get; }
+
+        public void PrintToConsole()
+        {
+            foreach (var field in _cronFields)
+            {
+                Console.WriteLine(field.ToFormattedString());
+            }
+            Console.WriteLine($"{CronFieldNames.Command.PadRight(CronFieldLimits.NameOutputLength)} {Command}");
+        }
 
         private List<CronFieldRange> ParseRanges(string fieldName, int fieldMin, int fieldMax, string ranges)
         {
@@ -81,7 +90,7 @@ namespace CronParser.Models
                 }
                 else if (SpecialCharacters.TryGetValue(currentChar, out var specialCharacter))
                 {
-                    if (specialCharacter == SpecialCharacter.Asterisk || specialCharacter == SpecialCharacter.QuestionMark)
+                    if (specialCharacter == SpecialCharacter.Asterisk)
                     {
                         currentRange = new CronFieldRange { Start = fieldMin, End = fieldMax };
                     }
@@ -96,11 +105,11 @@ namespace CronParser.Models
                     {
                         var subString = ranges.Substring(i, 3);
 
-                        if (Months.TryGetValue(subString, out var month))
+                        if (fieldName == CronFieldNames.Month && Months.TryGetValue(subString, out var month))
                         {
                             currentRange = ParseRange(fieldName, fieldMin, fieldMax, currentRange, month, currentSpecialCharacter, cronFieldRanges);
                         }
-                        else if (DaysOfWeek.TryGetValue(subString, out var day))
+                        else if (fieldName == CronFieldNames.DayOfWeek && DaysOfWeek.TryGetValue(subString, out var day))
                         {
                             currentRange = ParseRange(fieldName, fieldMin, fieldMax, currentRange, day, currentSpecialCharacter, cronFieldRanges);
                         }
@@ -131,7 +140,7 @@ namespace CronParser.Models
         {
             if (number < fieldMin || number > fieldMax)
             {
-                throw new ParseException($"Found value for field {fieldName} that is outside of the range {fieldMin}-{fieldMax}");
+                throw new ParseException($"Found value for field [{fieldName}] that is outside of the range {fieldMin}-{fieldMax}");
             }
 
             if (currentRange == null)
@@ -154,15 +163,6 @@ namespace CronParser.Models
             }
 
             return currentRange;
-        }
-
-        public void PrintToConsole()
-        {
-            foreach (var field in _cronFields)
-            {
-                Console.WriteLine(field.ToFormattedString());
-            }
-            Console.WriteLine($"{CronFieldNames.Command.PadRight(CronFieldLimits.NameOutputLength)} {Command}");
         }
     }
 }
